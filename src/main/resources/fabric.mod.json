@@ -5,13 +5,13 @@
 	"name": "Tool Draw Sounds",
 	"description": "Plays a draw sound when you select a sword or axe in your hotbar",
 	"authors": [
-		"Me!"
+		"OrangoPontoTango"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/tool-draw-sounds",
 		"sources": "https://github.com/maker-lukas/tool-draw-sounds"
 	},
-	"license": "CC0-1.0",
+	"license": "AGPL-3.0-or-later",
 	"icon": "assets/tool-draw-sounds/icon.png",
 	"environment": "client",
 	"entrypoints": {
@@ -19,7 +19,12 @@
 			"com.orangopontotango.client.ToolDrawSoundsClient"
 		]
 	},
-	"mixins": [],
+	"mixins": [
+		{
+			"config": "tool-draw-sounds.client.mixins.json",
+			"environment": "client"
+		}
+	],
 
 	"depends": {
 		"fabricloader": ">=0.19.2",

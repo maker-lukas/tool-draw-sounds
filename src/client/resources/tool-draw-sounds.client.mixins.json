@@ -2,7 +2,9 @@
 	"required": true,
 	"package": "com.orangopontotango.client.mixin",
 	"compatibilityLevel": "JAVA_25",
-	"client": [],
+	"client": [
+		"PlayerInventorySelectedSlotMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	},
