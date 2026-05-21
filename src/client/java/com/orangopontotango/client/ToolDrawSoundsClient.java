@@ -4,15 +4,19 @@ import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Registry;
+import net.minecraft.care.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 
 public class ToolDrawSoundsClient implements ClientModInitializer {
     public static final String MOD_ID = "tool-draw-sounds";
@@ -22,10 +26,30 @@ public class ToolDrawSoundsClient implements ClientModInitializer {
         ItemTags.SWORDS,
         ItemTags.AXES
     );
+    private static final Set<Item> WOOD_ITEMS = Set.of(
+        Items.WOODEN_SWORD,
+        ITEMS.WOODEN_AXE
+    );
+    private static final Set<Item> STONE_ITEMS = Set.of(
+        Items.STONE_SWORD,
+        Items.STONE_AXE
+    );
+
+    public static SoundEvent DRAW_WOOD;
+    public static SoundEvent DRAW_STONE;
+    public static SoundEvent DRAW_METAL;
 
     @Override
     public void onInitializeClient() {
+        DRAW_WOOD = registerSound("draw_wood");
+        DRAW_STONE = registerSound("draw_stone");
+        DRAW_METAL = registerSound("draw_metal");
         LOGGER.info("Tool Draw Sounds initialized");
+    }
+
+    private static SoundEvent registerSound(String name) {
+        Identifier id = Identifier.framNamespaceAndPath(MOD_ID, name);
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
     }
 
     public static void handleSlotChange(ItemStack newStack) {
@@ -46,16 +70,15 @@ public class ToolDrawSoundsClient implements ClientModInitializer {
 
     private static void playDrawSound(ItemStack stack) {
         SoundEvent sound = pickSoundFor(stack);
-        // forUI = no world position, no falloff, purely local UI-style sound.
         Minecraft.getInstance().getSoundManager().play(
-            SimpleSoundInstance.forUI(sound, 0.8f, 1.0f)
+            SimpleSoundInstance.forUI(sound, 1.0f, 1.0f)
         );
     }
 
     private static SoundEvent pickSoundFor(ItemStack stack) {
-        if (stack.typeHolder().is(ItemTags.AXES)) {
-            return SoundEvents.AXE_STRIP;
-        }
-        return SoundEvents.ARMOR_EQUIP_IRON.value();
+        Item item = stack.getItem();
+        if (WOOD_ITEMS.contains(item)) return DRAW_WOOD;
+        if (STONE_ITEMS.contains(item)) return DRAW_STONE;
+        return DRAW_METAL;
     }
 }

@@ -1,0 +1,29 @@
+{
+    "draw_wood": {
+        "category": "player",
+        "subtitle": "tool-draw-sounds.subtitle.draw_wood",
+        "sounds": [
+            "tool-draw-sounds:draw_wood_1",
+            "tool-draw-sounds:draw_wood_2",
+            "tool-draw-sounds:draw_wood_3"
+        ]
+    },
+    "draw_stone": {
+        "category": "player",
+        "subtitle": "tool-draw-sounds.subtitle.draw_stone",
+        "sounds": [
+            "tool-draw-sounds:draw_stone_1",
+            "tool-draw-sounds:draw_stone_2",
+            "tool-draw-sounds:draw_stone_3"
+        ]
+    },
+    "draw_metal": {
+        "category": "player",
+        "subtitle": "tool-draw-sounds.subtitle.draw_metal",
+        "sounds": [
+            "tool-draw-sounds:draw_metal_1",
+            "tool-draw-sounds:draw_metal_2",
+            "tool-draw-sounds:draw_metal_3"
+        ]
+    }
+}
